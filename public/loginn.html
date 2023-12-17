@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Login page</title>
+</head>
+<body>
+    <section>
+        <h1>LOGIN</h1>
+        <form action="/login" method="POST">
+            <input type="email" name="email" id="" placeholder="Email">
+        
+            <input type="password" name="passord" id="" placeholder="Passord">
+
+            
+            <a href="./loginn.html">
+            <input type="submit" value="Submit"> 
+         
+        </form>
+        <h3><a href="./index.html">Sign up</a></h3>
+    </section>
+
+   
+
+<style>
+</style>
+
+      <script>
+        $('#login-form').on('submit', function(e) {
+          e.preventDefault();
+          $.ajax({
+            url: '/login',
+            method: 'POST',
+            data: $(this).serialize(),
+            success: function(data) {
+              $('#message').text(data.message);
+              if (data.users) {
+                data.users.forEach(user => {
+                  $('#message').append(`<p>${user.name} (${user.email})</p>`);
+                });
+              }
+            },
+            error: function(err) {
+              $('#message').text(err.responseJSON.message);
+            }
+          });
+        });
+     </script>
+
+</body>
+</html>
